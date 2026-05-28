@@ -5,31 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>250 Social Bar + Kitchen | Tofino</title>
   <meta name="description" content="250 Social Bar + Kitchen — coastal comfort food, craft cocktails, and a relaxed atmosphere in Tofino." />
-  <link rel="icon" type="image/jpeg" href="images/logo.jpg" />
+  <link rel="icon" type="image/svg+xml" href="images/logo.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-  <!-- Header -->
+
+  <!-- ========== HEADER ========== -->
   <header class="site-header">
-    <div class="container header-inner">
-      <a href="#" class="brand">
-        <img src="images/logo.jpg" alt="250 Social Bar + Kitchen" />
+    <div class="header-row container">
+      <!-- Centered logo banner -->
+      <a href="#top" class="brand" aria-label="250 Social Bar + Kitchen — Home">
+        <img src="images/logo.svg" alt="250 Social Bar + Kitchen" class="logo-img" />
       </a>
-      <nav class="main-nav" aria-label="Main">
-        <a href="#menu">Menu</a>
-        <a href="#about">About</a>
-        <a href="#happyhour">Happy Hour</a>
-        <a href="#visit">Visit</a>
-      </nav>
-      <a href="#reserve" class="btn btn-outline">Book a Table</a>
+
+      <!-- Hamburger (mobile only) -->
+      <button
+        id="menuBtn"
+        class="menu-btn"
+        type="button"
+        aria-label="Open menu"
+        aria-controls="drawer"
+        aria-expanded="false"
+      >
+        <span></span><span></span><span></span>
+      </button>
     </div>
+
+    <!-- Desktop nav under the logo -->
+    <nav class="desktop-nav" aria-label="Main">
+      <a href="#menu">Menu</a>
+      <a href="#about">About</a>
+      <a href="#happyhour">Happy Hour</a>
+      <a href="#visit">Visit</a>
+      <a href="#reserve" class="nav-cta">Book a Table</a>
+    </nav>
   </header>
 
-  <!-- Hero -->
-  <section class="hero">
+  <!-- ========== MOBILE DRAWER ========== -->
+  <div id="backdrop" class="backdrop"></div>
+  <aside id="drawer" class="drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <span class="drawer-title">Menu</span>
+      <button id="drawerClose" class="drawer-close" type="button" aria-label="Close menu">×</button>
+    </div>
+    <nav class="drawer-nav" aria-label="Mobile">
+      <a href="#menu">Menu</a>
+      <a href="#about">About</a>
+      <a href="#happyhour">Happy Hour</a>
+      <a href="#visit">Visit</a>
+      <a href="#reserve" class="drawer-cta">Book a Table</a>
+    </nav>
+    <div class="drawer-foot">
+      <p>250 Main Street, Tofino, BC</p>
+      <p>(250) 555-0150</p>
+    </div>
+  </aside>
+
+  <!-- ========== HERO ========== -->
+  <section id="top" class="hero">
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <p class="eyebrow">Tofino · British Columbia</p>
@@ -42,7 +78,7 @@
     </div>
   </section>
 
-  <!-- About -->
+  <!-- ========== ABOUT ========== -->
   <section id="about" class="section section-dark">
     <div class="container two-col">
       <div>
@@ -64,7 +100,7 @@
     </div>
   </section>
 
-  <!-- Menu Highlights -->
+  <!-- ========== MENU ========== -->
   <section id="menu" class="section">
     <div class="container">
       <div class="section-head">
@@ -108,7 +144,7 @@
     </div>
   </section>
 
-  <!-- Happy Hour -->
+  <!-- ========== HAPPY HOUR ========== -->
   <section id="happyhour" class="section section-accent">
     <div class="container two-col">
       <div class="happy-image">
@@ -129,7 +165,7 @@
     </div>
   </section>
 
-  <!-- Visit / Reserve -->
+  <!-- ========== VISIT / RESERVE ========== -->
   <section id="visit" class="section section-dark">
     <div class="container two-col">
       <div>
@@ -155,28 +191,68 @@
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- ========== FOOTER ========== -->
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div>
-        <img src="images/logo.jpg" alt="250 Social Bar + Kitchen" class="footer-logo" />
-        <p class="muted small">Coastal comfort, served daily in Tofino.</p>
-      </div>
-      <div class="footer-links">
+      <img src="images/logo.svg" alt="250 Social Bar + Kitchen" class="footer-logo" />
+      <nav class="footer-links" aria-label="Footer">
         <a href="#menu">Menu</a>
         <a href="#about">About</a>
         <a href="#happyhour">Happy Hour</a>
         <a href="#visit">Visit</a>
-      </div>
-      <div class="footer-meta">
-        <p class="muted small">&copy; <span id="year"></span> 250 Social Bar + Kitchen.</p>
-        <p class="muted small">All rights reserved.</p>
-      </div>
+      </nav>
+      <p class="muted small footer-copy">
+        &copy; <span id="year"></span> 250 Social Bar + Kitchen · All rights reserved.
+      </p>
     </div>
   </footer>
 
+  <!-- ========== SCRIPT ========== -->
   <script>
+    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile drawer
+    var menuBtn   = document.getElementById('menuBtn');
+    var drawer    = document.getElementById('drawer');
+    var backdrop  = document.getElementById('backdrop');
+    var closeBtn  = document.getElementById('drawerClose');
+    var html      = document.documentElement;
+
+    function openMenu() {
+      html.classList.add('menu-open');
+      drawer.setAttribute('aria-hidden', 'false');
+      menuBtn.setAttribute('aria-expanded', 'true');
+      menuBtn.setAttribute('aria-label', 'Close menu');
+    }
+    function closeMenu() {
+      html.classList.remove('menu-open');
+      drawer.setAttribute('aria-hidden', 'true');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      menuBtn.setAttribute('aria-label', 'Open menu');
+    }
+
+    menuBtn.addEventListener('click', function () {
+      if (html.classList.contains('menu-open')) closeMenu();
+      else openMenu();
+    });
+    closeBtn.addEventListener('click', closeMenu);
+    backdrop.addEventListener('click', closeMenu);
+
+    // Close on link tap inside drawer
+    drawer.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', closeMenu);
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeMenu();
+    });
+
+    // Close on resize to desktop
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 860) closeMenu();
+    });
   </script>
 </body>
 </html>
